@@ -1,0 +1,169 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+.register-page{
+  width:100%;
+  min-height:100vh;
+
+  background:steelblue;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  padding:20px;
+}
+
+.register-container{
+  width:100%;
+  max-width:1100px;
+
+  background:white;
+
+  border-radius:20px;
+  overflow:hidden;
+
+  display:flex;
+
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.register-left{
+  flex:1;
+
+  background:lightblue;
+  color:black;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  padding:60px;
+}
+
+.brand-logo{
+  width:80px;
+  height:80px;
+
+  background:white;
+  color:#2575fc;
+
+  border-radius:50%;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  font-size:32px;
+
+  margin-bottom:30px;
+}
+
+.register-left h1{
+  font-size:42px;
+  margin-bottom:20px;
+}
+
+.register-left p{
+  font-size:18px;
+  line-height:1.8;
+}
+
+.register-right{
+  flex:1;
+
+  padding:50px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.register-right h2{
+  font-size:36px;
+  margin-bottom:30px;
+  color:#2d3436;
+}
+
+.input-group{
+  margin-bottom:18px;
+}
+
+.input-group label{
+  display:block;
+  margin-bottom:8px;
+
+  color:#2d3436;
+  font-weight:600;
+}
+
+.input-group input{
+  width:100%;
+
+  padding:14px;
+
+  border:1px solid #dfe6e9;
+  border-radius:10px;
+
+  font-size:16px;
+
+  outline:none;
+}
+
+.input-group input:focus{
+  border-color:#2575fc;
+}
+
+.register-btn{
+  width:100%;
+
+  padding:15px;
+
+  background:#2575fc;
+  color:white;
+
+  border:none;
+  border-radius:10px;
+
+  font-size:16px;
+  font-weight:600;
+
+  margin-top:10px;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.register-btn:hover{
+  background:#145de0;
+}
+
+.bottom-text{
+  margin-top:20px;
+  text-align:center;
+}
+
+.bottom-text a{
+  color:#2575fc;
+  font-weight:600;
+}
+
+@media(max-width:768px){
+
+  .register-container{
+    flex-direction:column;
+  }
+
+  .register-left,
+  .register-right{
+    padding:40px 25px;
+  }
+
+  .register-left h1{
+    font-size:32px;
+  }
+
+}

@@ -1,0 +1,313 @@
+/* ===== PAGE LAYOUT ===== */
+
+.sessions-layout{
+
+  display:flex;
+
+  min-height:100vh;
+
+  background:white;
+}
+
+
+
+
+.sessions-main{
+
+  flex:1;
+
+  margin-left:260px;
+
+  min-height:100vh;
+}
+
+
+
+
+.sessions-content{
+
+  padding:30px;
+}
+
+
+
+
+/* ===== TOP ===== */
+
+.session-top{
+
+  margin-bottom:35px;
+}
+
+
+
+
+.session-top h1{
+
+  font-size:36px;
+
+  font-weight:700;
+
+  color:#111827;
+}
+
+
+
+
+/* ===== GRID ===== */
+
+.sessions-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(320px,380px));
+
+  gap:20px;
+}
+
+
+/* ===== SESSION CARD ===== */
+
+.session-card{
+
+  background:lightsteelblue;
+
+  border-radius:24px;
+
+  padding:28px;
+
+  box-shadow:
+  0 6px 20px rgba(0,0,0,0.06);
+
+  transition:0.3s;
+
+  border:1px solid #eef2f7;
+}
+
+
+
+
+
+.session-card:hover{
+
+  transform:translateY(-4px);
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,0.08);
+}
+
+
+
+
+/* ===== TITLE ===== */
+
+.session-card h2{
+
+  font-size:28px;
+
+  color:black;
+
+  margin-bottom:10px;
+ text-align: center;
+
+  font-weight:700;
+}
+
+
+
+
+.session-status{
+
+  font-size:15px;
+
+  color:green;
+  text-align: center;
+
+  margin-bottom:25px;
+}
+
+
+
+
+/* ===== INCOME / REMAINING ===== */
+
+.session-amount{
+
+  font-size:18px;
+
+  color:black;
+
+  font-weight:600;
+
+  margin-bottom:18px;
+}
+
+
+
+
+/* ===== SPENT SECTION ===== */
+
+
+
+
+.spent-section h3{
+
+  font-size:20px;
+
+  color:#ef4444;
+
+  margin-bottom:18px;
+
+  font-weight:700;
+}
+
+
+
+
+/* ===== CATEGORY LINE ===== */
+
+.category-line{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  padding:14px 0;
+
+ 
+
+  font-size:16px;
+
+  color:black;
+
+  font-weight:500;
+}
+
+
+
+
+.category-line:last-child{
+
+  border-bottom:none;
+}
+
+
+
+
+.category-line span{
+
+  color:#ef4444;
+
+  font-size:17px;
+
+  font-weight:700;
+}
+
+
+
+
+/* ===== NO EXPENSE ===== */
+
+.no-expense-text{
+
+  color:black;
+
+  font-size:14px;
+}
+
+
+
+
+/* ===== DATES ===== */
+
+.session-date{
+
+  margin-top:10px;
+
+  color:black;
+
+  font-size:14px;
+  text-align: right;
+}
+
+
+
+/* ===== LOADING ===== */
+
+.loading-text{
+
+  color:#6b7280;
+
+  font-size:24px;
+}
+
+
+
+
+/* ===== RESPONSIVE ===== */
+
+@media(max-width:1200px){
+
+  .sessions-grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+}
+
+
+
+
+@media(max-width:992px){
+
+  .sessions-main{
+
+    margin-left:0;
+
+  }
+
+}
+
+
+
+
+@media(max-width:768px){
+
+  .sessions-content{
+
+    padding:20px;
+
+  }
+
+
+
+
+  .session-card{
+
+    padding:22px;
+
+  }
+
+
+
+
+  .session-card h2{
+
+    font-size:24px;
+
+  }
+
+
+
+
+  .spent-section h3{
+
+    font-size:20px;
+
+  }
+
+}

@@ -1,0 +1,282 @@
+/* ===== LAYOUT ===== */
+
+.dashboard-layout{
+  display:flex;
+
+  min-height:100vh;
+
+  background:#f5f7fb;
+}
+
+
+
+
+.dashboard-main{
+  flex:1;
+
+  margin-left:260px;
+
+  min-height:100vh;
+}
+
+
+
+
+.dashboard-content{
+  padding:30px;
+}
+
+
+
+
+/* ===== HERO ===== */
+
+.dashboard-hero{
+  background:steelblue;
+  color:white;
+
+  padding:40px;
+
+  border-radius:25px;
+
+  margin-bottom:40px;
+}
+
+
+
+
+.dashboard-hero h1{
+  font-size:42px;
+
+  margin-bottom:15px;
+}
+
+
+
+
+.dashboard-hero p{
+  font-size:18px;
+
+  line-height:1.7;
+
+  max-width:800px;
+}
+
+
+
+
+/* ===== SECTION ===== */
+
+.dashboard-section{
+  margin-bottom:50px;
+}
+
+
+
+
+.dashboard-section h2{
+  font-size:30px;
+
+  margin-bottom:25px;
+
+  color:#111827;
+}
+
+
+
+
+/* ===== STEP GRID ===== */
+
+.steps-grid{
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(260px,1fr));
+
+  gap:25px;
+}
+
+
+
+
+.step-card{
+  background:white;
+
+  padding:25px;
+
+  border-radius:20px;
+
+  box-shadow:
+  0 4px 15px rgba(0,0,0,0.05);
+
+  transition:0.3s;
+}
+
+
+
+
+.step-card:hover{
+  transform:translateY(-5px);
+}
+
+
+
+
+.step-number{
+  width:45px;
+  height:45px;
+
+  border-radius:50%;
+
+  background:#6366f1;
+
+  color:white;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-weight:700;
+
+  margin-bottom:20px;
+}
+
+
+
+
+.step-card h3{
+  margin-bottom:15px;
+
+  color:#111827;
+}
+
+
+
+
+.step-card p{
+  color:#6b7280;
+
+  line-height:1.6;
+}
+
+
+
+
+/* ===== FEATURES ===== */
+
+.feature-grid{
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(280px,1fr));
+
+  gap:25px;
+}
+
+
+
+
+.feature-card{
+  background:white;
+
+  padding:25px;
+
+  border-radius:20px;
+
+  box-shadow:
+  0 4px 15px rgba(0,0,0,0.05);
+}
+
+
+
+
+.feature-card h3{
+  margin-bottom:15px;
+
+  color:#111827;
+}
+
+
+
+
+.feature-card p{
+  color:#6b7280;
+
+  line-height:1.6;
+}
+
+
+
+
+/* ===== QUOTE ===== */
+
+.dashboard-quote{
+  background:white;
+
+  padding:40px;
+
+  border-radius:25px;
+
+  text-align:center;
+
+  box-shadow:
+  0 4px 15px rgba(0,0,0,0.05);
+}
+
+
+
+
+.dashboard-quote h2{
+  color:#6366f1;
+
+  font-size:30px;
+
+  line-height:1.6;
+}
+
+
+
+
+/* ===== RESPONSIVE ===== */
+
+@media(max-width:992px){
+
+  .dashboard-main{
+    margin-left:0;
+  }
+
+}
+
+
+
+
+@media(max-width:768px){
+
+  .dashboard-content{
+    padding:20px;
+  }
+
+
+
+
+  .dashboard-hero{
+    padding:30px;
+  }
+
+
+
+
+  .dashboard-hero h1{
+    font-size:32px;
+  }
+
+
+
+
+  .dashboard-quote h2{
+    font-size:24px;
+  }
+
+}
