@@ -1,12 +1,13 @@
 import { useEffect, useState }
 from "react";
 
-import Sidebar from "../components/Sidebar";
-
+import Sidebar
+from "../components/Sidebar";
 
 import "../styles/Sessions.css";
 
-import axios from "axios";
+import axios
+from "axios";
 
 
 
@@ -17,6 +18,9 @@ function Sessions() {
 
   const [loading, setLoading] =
     useState(true);
+
+  const [sessionTitle, setSessionTitle] =
+    useState("");
 
 
 
@@ -70,6 +74,72 @@ function Sessions() {
 
 
 
+  // create session
+  const handleCreateSession = async () => {
+
+    try {
+
+      if (!sessionTitle) {
+
+        alert(
+          "Enter Session Title"
+        );
+
+        return;
+
+      }
+
+
+
+
+      await axios.post(
+
+        "http://localhost:5000/api/sessions",
+
+        {
+
+          user: userId,
+
+          title: sessionTitle
+
+        }
+
+      );
+
+
+
+
+      alert(
+        "Session Created Successfully"
+      );
+
+
+
+
+      setSessionTitle("");
+
+
+
+
+      fetchSessions();
+
+    }
+
+    catch (error) {
+
+      console.log(error);
+
+      alert(
+        "Failed To Create Session"
+      );
+
+    }
+
+  };
+
+
+
+
   useEffect(() => {
 
     if (userId) {
@@ -94,32 +164,72 @@ function Sessions() {
 
       <div className="sessions-main">
 
-    
-
-
-
-
         <div className="sessions-content">
 
 
 
 
-          {/* title */}
+          {/* ===== TOP ===== */}
 
           <div className="session-top">
 
-            <h1>
-              Expense Sessions
-            </h1>
+            <div>
+
+              <h1>
+                Expense Sessions
+              </h1>
+
+              <p className="session-subtitle">
+
+                Manage and track all
+                your expense sessions
+              </p>
+
+            </div>
+
+
+
+
+            <div className="create-session-box">
+
+              <input
+                type="text"
+                placeholder="Enter Session Title"
+                value={sessionTitle}
+                onChange={(e) =>
+                  setSessionTitle(
+                    e.target.value
+                  )
+                }
+              />
+
+
+
+
+              <button
+                onClick={
+                  handleCreateSession
+                }
+              >
+
+                Create Session
+
+              </button>
+
+            </div>
 
           </div>
 
 
 
 
+          {/* ===== LOADING ===== */}
+
           {
 
-            loading ?
+            loading
+
+            ?
 
             (
 
@@ -142,176 +252,186 @@ function Sessions() {
 
                 {
 
-                 sessions.map((session) => (
+                  sessions.map((session) => (
 
-  <div
-    className="session-card"
-    key={session._id}
-  >
+                    <div
+                      className="session-card"
+                      key={session._id}
+                    >
 
 
 
 
-    <h2>
-      {session.title}
-    </h2>
+                      <h2>
 
+                        {session.title}
 
+                      </h2>
 
 
-    <p className="session-status">
 
-      {
 
-        session.isActive
+                      <p className="session-status">
 
-        ?
+                        {
 
-        "Active Session"
+                          session.isActive
 
-        :
+                          ?
 
-        "Completed Session"
+                          "Active Session"
 
-      }
-      
+                          :
 
-    </p>
-    
+                          "Completed Session"
 
+                        }
 
+                      </p>
 
-<p className="session-date">
 
-      Started :
 
-      {
 
-        new Date(
-          session.startedAt
-        ).toLocaleDateString()
+                      <p className="session-date">
 
-      }
+                        Started :
 
-    </p>
-     {
+                        {
 
-      session.endedAt && (
+                          new Date(
 
-        <p className="session-date">
+                            session.startedAt
 
-          Ended :
+                          ).toLocaleDateString()
 
-          {
+                        }
 
-            new Date(
-              session.endedAt
-            ).toLocaleDateString()
+                      </p>
 
-          }
 
-        </p>
 
-      )
 
-    }
-    <p className="session-amount">
+                      {
 
-      Income :
-      ₹{session.totalIncome}
+                        session.endedAt && (
 
-    </p>
-    
+                          <p className="session-date">
 
+                            Ended :
 
+                            {
 
+                              new Date(
 
-    <div className="spent-section">
+                                session.endedAt
 
-      <h3>
+                              ).toLocaleDateString()
 
-        Spent :
-        ₹{session.totalExpense}
+                            }
 
-      </h3>
+                          </p>
 
+                        )
 
+                      }
 
 
-      {
 
-        Object.keys(
 
-          session.categoryTotals || {}
+                      <p className="session-amount">
 
-        ).length === 0
+                        Income :
+                        ₹{session.totalIncome}
 
-        ?
+                      </p>
 
-        (
 
-          <p className="no-expense-text">
 
-            No category expenses
 
-          </p>
+                      {/* ===== SPENT ===== */}
 
-        )
+                     
 
-        :
+                        <h3>
 
-        (
+                          Spent :
+                          ₹{session.totalExpense}
 
-          Object.entries(
+                        </h3>
 
-            session.categoryTotals || {}
 
-          ).map(
 
-            ([category, amount]) => (
 
-              <p
-                className="category-line"
-                key={category}
-              >
-                {category}
-                  : ₹{amount}
-              </p>
+                        {
 
-            )
+                          Object.keys(
 
-          )
+                            session.categoryTotals || {}
 
-        )
+                          ).length === 0
 
-      }
+                          ?
 
-    </div>
+                          (
 
+                            <p className="no-expense-text">
 
+                              No category expenses
 
-      <br></br>
-    <p className="session-amount">
+                            </p>
 
-      Remaining :
-      ₹{session.remainingAmount}
+                          )
 
-    </p>
-    
+                          :
 
+                          (
 
+                            Object.entries(
 
+                              session.categoryTotals || {}
 
-    
+                            ).map(
 
+                              ([category, amount]) => (
 
+                                <p
+                                  className="category-line"
+                                  key={category}
+                                >
 
+                                  {category}
 
-   
+                                  
 
-  </div>
+                                   :  ₹{amount}
 
-))
+                                  
+
+                                </p>
+
+                              )
+
+                            )
+
+                          )
+
+                        }
+
+                      
+
+
+
+
+                      <p className="session-amount remaining-text">
+
+                        Remaining :
+                        ₹{session.remainingAmount}
+
+                      </p>
+
+                    </div>
+
+                  ))
 
                 }
 

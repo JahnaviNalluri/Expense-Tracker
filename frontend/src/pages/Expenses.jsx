@@ -5,7 +5,6 @@ import axios from "axios";
 
 import Sidebar from "../components/Sidebar";
 
-
 import "../styles/Expenses.css";
 
 
@@ -30,12 +29,33 @@ function Expenses() {
 
 
 
+  const [editId, setEditId] =
+    useState(null);
+
+  const [editData, setEditData] =
+    useState({
+
+      title: "",
+
+      category: "",
+
+      type: "",
+
+      amount: "",
+
+      description: ""
+
+    });
+
+
+
+
   const user =
     JSON.parse(
       localStorage.getItem("user")
     );
 
-  const userId = user._id;
+  const userId = user?._id;
 
 
 
@@ -76,9 +96,11 @@ function Expenses() {
 
 
 
+
       setActiveSession(
         response.data.data
       );
+
 
 
 
@@ -91,7 +113,9 @@ function Expenses() {
 
       }));
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
       console.log(error);
 
@@ -104,38 +128,40 @@ function Expenses() {
 
 
 
-const fetchExpenses = async () => {
+  // fetch expenses
+  const fetchExpenses = async () => {
 
-  try {
+    try {
 
-    if (!activeSession) return;
-
-
+      if (!activeSession) return;
 
 
-    const response =
-      await axios.get(
 
-        `http://localhost:5000/api/expenses/session/${activeSession._id}`
 
+      const response =
+        await axios.get(
+
+          `http://localhost:5000/api/expenses/session/${activeSession._id}`
+
+        );
+
+
+
+
+      setExpenses(
+        response.data.data.expenses
       );
 
+    }
 
+    catch (error) {
 
+      console.log(error);
 
-    setExpenses(
-      response.data.data.expenses
-    );
+    }
 
-  }
+  };
 
-  catch (error) {
-
-    console.log(error);
-
-  }
-
-};
 
 
 
@@ -153,11 +179,14 @@ const fetchExpenses = async () => {
 
 
 
+
       setSessions(
         response.data.data.sessions
       );
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
       console.log(error);
 
@@ -182,11 +211,14 @@ const fetchExpenses = async () => {
 
 
 
+
       setCategories(
         response.data.data.categories
       );
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
       console.log(error);
 
@@ -203,16 +235,14 @@ const fetchExpenses = async () => {
 
       await fetchActiveSession();
 
-   
-
       await fetchSessions();
 
       await fetchCategories();
 
-
       setLoading(false);
 
     };
+
 
 
 
@@ -221,15 +251,20 @@ const fetchExpenses = async () => {
   }, []);
 
 
-useEffect(() => {
 
-  if (activeSession) {
 
-    fetchExpenses();
+  useEffect(() => {
 
-  }
+    if (activeSession) {
 
-}, [activeSession]);
+      fetchExpenses();
+
+    }
+
+  }, [activeSession]);
+
+
+
 
   // input change
   const handleChange = (e) => {
@@ -248,7 +283,7 @@ useEffect(() => {
 
 
 
-  // create first session
+  // create session
   const handleCreateSession = async () => {
 
     try {
@@ -260,7 +295,9 @@ useEffect(() => {
 
 
 
+
       if (!title) return;
+
 
 
 
@@ -280,9 +317,11 @@ useEffect(() => {
 
 
 
+
       alert(
         "Session Created Successfully"
       );
+
 
 
 
@@ -290,7 +329,9 @@ useEffect(() => {
 
       fetchSessions();
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
       console.log(error);
 
@@ -328,31 +369,6 @@ useEffect(() => {
 
     try {
 
-      // create category automatically
-      try {
-
-        await axios.post(
-
-          "http://localhost:5000/api/categories",
-
-          {
-
-            name:
-            formData.category
-
-          }
-
-        );
-
-      } catch (err) {
-
-        // ignore duplicate category
-      }
-
-
-
-
-      // create expense
       await axios.post(
 
         "http://localhost:5000/api/expenses",
@@ -363,9 +379,11 @@ useEffect(() => {
 
 
 
+
       alert(
         "Expense Added Successfully"
       );
+
 
 
 
@@ -390,16 +408,89 @@ useEffect(() => {
 
 
 
+
       fetchExpenses();
 
       fetchCategories();
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
       console.log(error);
 
       alert(
         "Failed To Add Expense"
+      );
+
+    }
+
+  };
+
+
+
+
+  // update expense
+  const handleUpdate = async (id) => {
+
+    try {
+
+      await axios.put(
+
+        `http://localhost:5000/api/expenses/${id}`,
+
+        editData
+
+      );
+
+
+
+
+      setEditId(null);
+
+      fetchExpenses();
+
+    }
+
+    catch (error) {
+
+      console.log(error);
+
+      alert(
+        "Update Failed"
+      );
+
+    }
+
+  };
+
+
+
+
+  // delete expense
+  const handleDelete = async (id) => {
+
+    try {
+
+      await axios.delete(
+
+        `http://localhost:5000/api/expenses/${id}`
+
+      );
+
+
+
+
+      fetchExpenses();
+
+    }
+
+    catch (error) {
+
+      console.log(error);
+
+      alert(
+        "Delete Failed"
       );
 
     }
@@ -416,14 +507,14 @@ useEffect(() => {
 
       const newSessionTitle =
         prompt(
-
           "Enter New Session Name"
-
         );
 
 
 
+
       if (!newSessionTitle) return;
+
 
 
 
@@ -443,9 +534,11 @@ useEffect(() => {
 
 
 
+
       alert(
         "New Session Started"
       );
+
 
 
 
@@ -453,9 +546,9 @@ useEffect(() => {
 
       fetchActiveSession();
 
-      fetchExpenses();
+    }
 
-    } catch (error) {
+    catch (error) {
 
       console.log(error);
 
@@ -486,10 +579,9 @@ useEffect(() => {
       <Sidebar />
 
 
+
+
       <div className="expenses-main">
-
-        
-
 
         <div className="expenses-content">
 
@@ -509,9 +601,10 @@ useEffect(() => {
                 </h2>
 
                 <p>
-                  Create a session to start
-                  tracking expenses.
+                  Create a session to
+                  start tracking expenses.
                 </p>
+
 
 
 
@@ -563,6 +656,7 @@ useEffect(() => {
 
 
 
+
                 <button
                   className="refresh-session-btn"
                   onClick={
@@ -583,7 +677,7 @@ useEffect(() => {
 
 
 
-          {/* Expense Form */}
+          {/* FORM */}
 
           {
 
@@ -591,7 +685,11 @@ useEffect(() => {
 
               <div className="expense-form-box">
 
-                <h2>Add Expense</h2>
+                <h2>
+                  Add Expense
+                </h2>
+
+
 
 
                 <form
@@ -610,6 +708,7 @@ useEffect(() => {
 
 
 
+
                   <input
                     type="number"
                     name="amount"
@@ -618,6 +717,7 @@ useEffect(() => {
                     onChange={handleChange}
                     required
                   />
+
 
 
 
@@ -643,33 +743,11 @@ useEffect(() => {
                   <input
                     type="text"
                     name="category"
-                    placeholder="Enter Category"
+                    placeholder="Category"
                     value={formData.category}
                     onChange={handleChange}
-                    list="category-options"
                     required
                   />
-
-
-
-                  <datalist id="category-options">
-
-                    {
-
-                      categories.map(
-                        (category) => (
-
-                          <option
-                            key={category._id}
-                            value={category.name}
-                          />
-
-                        )
-                      )
-
-                    }
-
-                  </datalist>
 
 
 
@@ -680,6 +758,7 @@ useEffect(() => {
                     value={formData.description}
                     onChange={handleChange}
                   ></textarea>
+
 
 
 
@@ -700,80 +779,374 @@ useEffect(() => {
 
 
 
-          {/* Expense Table */}
+          {/* TABLE */}
 
-          <div className="expense-table-box">
+          {
 
-            <h2>Expense List</h2>
+            activeSession && (
 
+              <div className="expense-table-box">
 
-            <table>
-
-              <thead>
-
-                <tr>
-
-                  <th>Title</th>
-
-                  <th>Category</th>
-
-                  <th>Type</th>
-
-                  <th>Amount</th>
-
-                  <th>Description</th>
-
-                </tr>
-
-              </thead>
+                <h2>
+                  Expense List
+                </h2>
 
 
 
-              <tbody>
 
-                {
+                <table>
 
-                  expenses.map(
-                    (expense) => (
+                  <thead>
 
-                      <tr
-                        key={expense._id}
-                      >
+                    <tr>
 
-                        <td>
-                          {expense.title}
-                        </td>
+                      <th>Title</th>
 
-                        <td>
-                          {expense.category}
-                        </td>
+                      <th>Category</th>
 
-                        <td>
-                          {expense.type}
-                        </td>
+                      <th>Type</th>
 
-                        <td>
-                          ₹{expense.amount}
-                        </td>
+                      <th>Amount</th>
 
-                        <td>
-                          {
-                            expense.description
-                          }
-                        </td>
+                      <th>Description</th>
 
-                      </tr>
+                      <th>Actions</th>
 
-                    )
-                  )
+                    </tr>
 
-                }
+                  </thead>
 
-              </tbody>
 
-            </table>
 
-          </div>
+
+                  <tbody>
+
+                    {
+
+                      expenses.map(
+                        (expense) => (
+
+                          <tr
+                            key={expense._id}
+                          >
+
+                            <td>
+
+                              {
+
+                                editId === expense._id
+
+                                ?
+
+                                (
+
+                                  <input
+                                    type="text"
+                                    value={editData.title}
+                                    onChange={(e) =>
+
+                                      setEditData({
+
+                                        ...editData,
+
+                                        title:
+                                        e.target.value
+
+                                      })
+
+                                    }
+                                  />
+
+                                )
+
+                                :
+
+                                expense.title
+
+                              }
+
+                            </td>
+
+
+
+
+                            <td>
+
+                              {
+
+                                editId === expense._id
+
+                                ?
+
+                                (
+
+                                  <input
+                                    type="text"
+                                    value={editData.category}
+                                    onChange={(e) =>
+
+                                      setEditData({
+
+                                        ...editData,
+
+                                        category:
+                                        e.target.value
+
+                                      })
+
+                                    }
+                                  />
+
+                                )
+
+                                :
+
+                                expense.category
+
+                              }
+
+                            </td>
+
+
+
+
+                            <td>
+
+                              {
+
+                                editId === expense._id
+
+                                ?
+
+                                (
+
+                                  <select
+                                    value={editData.type}
+                                    onChange={(e) =>
+
+                                      setEditData({
+
+                                        ...editData,
+
+                                        type:
+                                        e.target.value
+
+                                      })
+
+                                    }
+                                  >
+
+                                    <option value="expense">
+
+                                      Expense
+
+                                    </option>
+
+                                    <option value="income">
+
+                                      Income
+
+                                    </option>
+
+                                  </select>
+
+                                )
+
+                                :
+
+                                expense.type
+
+                              }
+
+                            </td>
+
+
+
+
+                            <td>
+
+                              {
+
+                                editId === expense._id
+
+                                ?
+
+                                (
+
+                                  <input
+                                    type="number"
+                                    value={editData.amount}
+                                    onChange={(e) =>
+
+                                      setEditData({
+
+                                        ...editData,
+
+                                        amount:
+                                        e.target.value
+
+                                      })
+
+                                    }
+                                  />
+
+                                )
+
+                                :
+
+                                `₹${expense.amount}`
+
+                              }
+
+                            </td>
+
+
+
+
+                            <td>
+
+                              {
+
+                                editId === expense._id
+
+                                ?
+
+                                (
+
+                                  <input
+                                    type="text"
+                                    value={editData.description}
+                                    onChange={(e) =>
+
+                                      setEditData({
+
+                                        ...editData,
+
+                                        description:
+                                        e.target.value
+
+                                      })
+
+                                    }
+                                  />
+
+                                )
+
+                                :
+
+                                expense.description
+
+                              }
+
+                            </td>
+
+
+
+
+                            <td className="action-buttons">
+
+                              {
+
+                                editId === expense._id
+
+                                ?
+
+                                (
+
+                                  <button
+                                    className="save-btn"
+                                    onClick={() =>
+                                      handleUpdate(
+                                        expense._id
+                                      )
+                                    }
+                                  >
+
+                                    Save
+
+                                  </button>
+
+                                )
+
+                                :
+
+                                (
+
+                                  <button
+                                    className="edit-btn"
+                                    onClick={() => {
+
+                                      setEditId(
+                                        expense._id
+                                      );
+
+
+
+
+                                      setEditData({
+
+                                        title:
+                                        expense.title,
+
+                                        category:
+                                        expense.category,
+
+                                        type:
+                                        expense.type,
+
+                                        amount:
+                                        expense.amount,
+
+                                        description:
+                                        expense.description
+
+                                      });
+
+                                    }}
+                                  >
+
+                                    Edit
+
+                                  </button>
+
+                                )
+
+                              }
+
+
+
+
+                              <button
+                                className="delete-btn"
+                                onClick={() =>
+                                  handleDelete(
+                                    expense._id
+                                  )
+                                }
+                              >
+
+                                Delete
+
+                              </button>
+
+                            </td>
+
+                          </tr>
+
+                        )
+                      )
+
+                    }
+
+                  </tbody>
+
+                </table>
+
+              </div>
+
+            )
+
+          }
 
         </div>
 

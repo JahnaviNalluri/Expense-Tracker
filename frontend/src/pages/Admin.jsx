@@ -1,22 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState }
+from "react";
 
 import axios from "axios";
 
 import "../styles/Admin.css";
+
+
 
 function Admin() {
 
   const [users, setUsers] =
     useState([]);
 
+  const [categories, setCategories] =
+    useState([]);
+
   const [loading, setLoading] =
     useState(true);
 
-const [categories, setCategories] =
-useState([]);
+  const [activeSection, setActiveSection] =
+    useState("overview");
 
 
-  // fetch all users
+
+
+  // fetch users
   const fetchUsers = async () => {
 
     try {
@@ -43,73 +51,83 @@ useState([]);
 
     }
 
-    finally {
+  };
 
-      setLoading(false);
+
+
+
+  // fetch categories
+  const fetchCategories = async () => {
+
+    try {
+
+      const response =
+      await axios.get(
+
+        "http://localhost:5000/api/expenses"
+
+      );
+
+
+
+
+      const expenses =
+      response.data.data.expenses;
+
+
+
+
+      const uniqueCategories = [
+
+        ...new Set(
+
+          expenses.map(
+
+            (expense) =>
+            expense.category
+
+          )
+
+        )
+
+      ];
+
+
+
+
+      setCategories(
+        uniqueCategories
+      );
+
+    }
+
+    catch (error) {
+
+      console.log(error);
 
     }
 
   };
 
-// fetch categories
-const fetchCategories = async () => {
 
-  try {
-
-    const response =
-    await axios.get(
-
-      "http://localhost:5000/api/expenses"
-
-    );
-
-
-
-
-    const expenses =
-    response.data.data.expenses;
-
-
-
-
-    // unique categories
-    const uniqueCategories = [
-
-      ...new Set(
-
-        expenses.map(
-
-          (expense) =>
-          expense.category
-
-        )
-
-      )
-
-    ];
-
-
-
-
-    setCategories(
-      uniqueCategories
-    );
-
-  }
-
-  catch (error) {
-
-    console.log(error);
-
-  }
-
-};
 
 
   useEffect(() => {
 
-    fetchUsers();
-    fetchCategories();
+    const loadData = async () => {
+
+      await fetchUsers();
+
+      await fetchCategories();
+
+      setLoading(false);
+
+    };
+
+
+
+
+    loadData();
 
   }, []);
 
@@ -144,7 +162,7 @@ const fetchCategories = async () => {
       console.log(error);
 
       alert(
-        "Failed to update role"
+        "Failed To Update Role"
       );
 
     }
@@ -177,13 +195,18 @@ const fetchCategories = async () => {
       console.log(error);
 
       alert(
-        "Failed to delete user"
+        "Failed To Delete User"
       );
 
     }
 
   };
-   const handleLogout = () => {
+
+
+
+
+  // logout
+  const handleLogout = () => {
 
     localStorage.removeItem("token");
 
@@ -202,132 +225,126 @@ const fetchCategories = async () => {
   return (
 
     <div className="admin-page">
+
+
+
+
+      {/* ===== TOP ===== */}
+
+      <div className="admin-top-bar">
+
+        <div>
+
+          <h1>
+            Expense Tracker Admin
+          </h1>
+
+          <p style={{color:"black", fontSize:"25 px"}}>
+            Manage users and categories
+          </p>
+
+        </div>
+
+
+
+
         <button
           className="logout-btnn"
           onClick={handleLogout}
-        >Logout</button>
+        >
 
+          Logout
 
-
-
-      {/* ===== HEADER ===== */}
-
-      <div className="admin-header">
-
-        <h1>
-          Expense Tracker Admin
-        </h1>
-        
-        <p>
-          Manage users, roles and categories
-        </p>
-
-      </div>
-      
-
-
-
-
-      {/* ===== STATS ===== */}
-
-      <div className="admin-stats">
-
-
-
-
-        {/* USERS */}
-
-        <div className="admin-stat-card">
-
-          <h2>
-            Users
-          </h2>
-
-          <p>
-
-  {
-
-    users.filter(
-
-      (user) =>
-
-      user.role === "user"
-
-    ).length
-
-  }
-
-</p>
-
-        </div>
-
-
-
-
-        {/* CATEGORIES */}
-
-        <div className="admin-stat-card">
-
-          <h2>
-            Categories
-          </h2>
-
-
-
-
-          <div className="category-tags">
-
-  {
-
-    categories.length === 0
-
-    ?
-
-    (
-
-      <span className="empty-category">
-
-        No Categories
-
-      </span>
-
-    )
-
-    :
-
-    (
-
-      categories.map(
-
-        (category, index) => (
-
-          <span
-            className="category-tag"
-            key={index}
-          >
-
-            {category}
-
-          </span>
-
-        )
-
-      )
-
-    )
-
-  }
-
-</div>
-
-        </div>
+        </button>
 
       </div>
 
 
 
 
-      {/* ===== USERS TABLE ===== */}
+      {/* ===== NAVIGATION ===== */}
+
+      <div className="admin-nav">
+
+        <button
+          className={
+
+            activeSection === "overview"
+
+            ?
+
+            "admin-nav-btn active-nav-btn"
+
+            :
+
+            "admin-nav-btn"
+
+          }
+          onClick={() =>
+            setActiveSection("overview")
+          }
+        >
+
+          Overview
+
+        </button>
+
+
+
+
+        <button
+          className={
+
+            activeSection === "users"
+
+            ?
+
+            "admin-nav-btn active-nav-btn"
+
+            :
+
+            "admin-nav-btn"
+
+          }
+          onClick={() =>
+            setActiveSection("users")
+          }
+        >
+
+          Users
+
+        </button>
+
+
+
+
+        <button
+          className={
+
+            activeSection === "categories"
+
+            ?
+
+            "admin-nav-btn active-nav-btn"
+
+            :
+
+            "admin-nav-btn"
+
+          }
+          onClick={() =>
+            setActiveSection("categories")
+          }
+        >
+
+          Categories
+
+        </button>
+
+      </div>
+
+
+
 
       {
 
@@ -349,134 +366,354 @@ const fetchCategories = async () => {
 
         (
 
-          <div className="users-table-box">
+          <>
 
 
 
 
-            <div className="table-top">
+            {/* ===== OVERVIEW ===== */}
 
-              <h2>
-                Users
-              </h2>
+            {
 
-            </div>
+              activeSection === "overview"
 
+              &&
 
+              (
 
+                <div className="overview-box">
 
-            <table>
 
-              <thead>
 
-                <tr>
 
-                  <th>Name</th>
+                  <h2>
+                    Dashboard Overview
+                  </h2>
 
-                  <th>Email</th>
 
-                  <th>Phone</th>
 
-                  <th>Role</th>
 
-                  <th>Actions</th>
+                  <div className="overview-grid">
 
-                </tr>
 
-              </thead>
 
 
+                    <div className="overview-card">
 
+                      <h3>
+                        Total Users
+                      </h3>
 
-              <tbody>
+                      <p>
 
-                {
+                        {
 
-                  users.map((user) => (
+                          users.filter(
 
-                    <tr key={user._id}>
+                            (user) =>
 
-                      <td>
-                        {user.name}
-                      </td>
+                            user.role === "user"
 
+                          ).length
 
+                        }
 
+                      </p>
 
-                      <td>
-                        {user.email}
-                      </td>
+                    </div>
 
 
 
 
-                      <td>
-                        {user.phoneno}
-                      </td>
+                    <div className="overview-card">
 
+                      <h3>
+                        Total Admins
+                      </h3>
 
+                      <p>
 
+                        {
 
-                      <td>
+                          users.filter(
 
-                        <select
-                          className="role-select"
-                          value={user.role}
-                          onChange={(e) =>
+                            (user) =>
 
-                            updateRole(
-                              user._id,
-                              e.target.value
-                            )
+                            user.role === "admin"
 
-                          }
-                        >
+                          ).length
 
-                          <option value="user">
+                        }
 
-                            User
+                      </p>
 
-                          </option>
+                    </div>
 
-                          <option value="admin">
 
-                            Admin
 
-                          </option>
 
-                        </select>
+                    <div className="overview-card">
 
-                      </td>
+                      <h3>
+                        Categories
+                      </h3>
 
+                      <p>
+                        {categories.length}
+                      </p>
 
+                    </div>
 
+                  </div>
 
-                      <td>
 
-                        <button
-                          className="delete-btn"
-                          onClick={() =>
-                            deleteUser(user._id)
-                          }
-                        >
 
-                          Delete
 
-                        </button>
+                  <div className="overview-info">
 
-                      </td>
+                    <h3>
+                      How To Use
+                    </h3>
 
-                    </tr>
 
-                  ))
 
-                }
 
-              </tbody>
+                    <ul>
 
-            </table>
+                      <li>
+                        Use the Users tab
+                        to manage user roles.
+                      </li>
 
-          </div>
+                      <li>
+                        Change role between
+                        admin and user.
+                      </li>
+
+                      <li>
+                        Delete inactive users
+                        from the system.
+                      </li>
+
+                      <li>
+                        Categories tab shows
+                        all expense categories.
+                      </li>
+
+                      <li>
+                        This panel helps
+                        monitor the entire app.
+                      </li>
+
+                    </ul>
+
+                  </div>
+
+                </div>
+
+              )
+
+            }
+
+
+
+
+            {/* ===== USERS ===== */}
+
+            {
+
+              activeSection === "users"
+
+              &&
+
+              (
+
+                <div className="users-table-box">
+
+                  <div className="table-top">
+
+                    <h2>
+                      Users
+                    </h2>
+
+                  </div>
+
+
+
+
+                  <table>
+
+                    <thead>
+
+                      <tr>
+
+                        <th>Name</th>
+
+                        <th>Email</th>
+
+                        <th>Phone</th>
+
+                        <th>Role</th>
+
+                        <th>Actions</th>
+
+                      </tr>
+
+                    </thead>
+
+
+
+
+                    <tbody>
+
+                      {
+
+                        users.map((user) => (
+
+                          <tr key={user._id}>
+
+                            <td>
+                              {user.name}
+                            </td>
+
+                            <td>
+                              {user.email}
+                            </td>
+
+                            <td>
+                              {user.phoneno}
+                            </td>
+
+
+
+
+                            <td>
+
+                              <select
+                                className="role-select"
+                                value={user.role}
+                                onChange={(e) =>
+
+                                  updateRole(
+                                    user._id,
+                                    e.target.value
+                                  )
+
+                                }
+                              >
+
+                                <option value="user">
+
+                                  User
+
+                                </option>
+
+                                <option value="admin">
+
+                                  Admin
+
+                                </option>
+
+                              </select>
+
+                            </td>
+
+
+
+
+                            <td>
+
+                              <button
+                                className="delete-btn"
+                                onClick={() =>
+                                  deleteUser(user._id)
+                                }
+                              >
+
+                                Delete
+
+                              </button>
+
+                            </td>
+
+                          </tr>
+
+                        ))
+
+                      }
+
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              )
+
+            }
+
+
+
+
+            {/* ===== CATEGORIES ===== */}
+
+            {
+
+              activeSection === "categories"
+
+              &&
+
+              (
+
+                <div className="categories-box">
+
+                  <div className="table-top">
+
+                    <h2>
+                      Categories
+                    </h2>
+
+                  </div>
+
+
+
+
+                  <div className="categories-grid">
+
+                    {
+
+                      categories.map(
+
+                        (category, index) => (
+
+                          <div
+                            className="category-card"
+                            key={index}
+                          >
+
+                            <h3>
+
+                              {category}
+
+                            </h3>
+
+                          </div>
+
+                        )
+
+                      )
+
+                    }
+
+                  </div>
+
+                </div>
+
+              )
+
+            }
+
+          </>
 
         )
 
