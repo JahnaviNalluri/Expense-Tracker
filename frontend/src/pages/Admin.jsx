@@ -183,6 +183,18 @@ const fetchCategories = async () => {
     }
 
   };
+   const handleLogout = () => {
+
+    localStorage.removeItem("token");
+
+    localStorage.removeItem("user");
+
+
+
+
+    window.location.href = "/";
+
+  };
 
 
 
@@ -190,6 +202,10 @@ const fetchCategories = async () => {
   return (
 
     <div className="admin-page">
+        <button
+          className="logout-btnn"
+          onClick={handleLogout}
+        >Logout</button>
 
 
 
@@ -201,12 +217,13 @@ const fetchCategories = async () => {
         <h1>
           Expense Tracker Admin
         </h1>
-
+        
         <p>
           Manage users, roles and categories
         </p>
 
       </div>
+      
 
 
 
