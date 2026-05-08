@@ -90,7 +90,7 @@ function Expenses() {
       const response =
         await axios.get(
 
-          `http://localhost:5000/api/sessions/active/${userId}`
+          `https://expense-tracker-4qjy.onrender.com/api/sessions/active/${userId}`
 
         );
 
@@ -141,7 +141,7 @@ function Expenses() {
       const response =
         await axios.get(
 
-          `http://localhost:5000/api/expenses/session/${activeSession._id}`
+          `https://expense-tracker-4qjy.onrender.com/api/expenses/session/${activeSession._id}`
 
         );
 
@@ -173,7 +173,7 @@ function Expenses() {
       const response =
         await axios.get(
 
-          `http://localhost:5000/api/sessions/history/${userId}`
+          `https://expense-tracker-4qjy.onrender.com/api/sessions/history/${userId}`
 
         );
 
@@ -205,7 +205,7 @@ function Expenses() {
       const response =
         await axios.get(
 
-          "http://localhost:5000/api/categories?page=1&limit=50"
+          "https://expense-tracker-4qjy.onrender.com/api/categories?page=1&limit=50"
 
         );
 
@@ -303,7 +303,7 @@ function Expenses() {
 
       await axios.post(
 
-        "http://localhost:5000/api/sessions",
+        "https://expense-tracker-4qjy.onrender.com/api/sessions",
 
         {
 
@@ -371,7 +371,7 @@ function Expenses() {
 
       await axios.post(
 
-        "http://localhost:5000/api/expenses",
+        "https://expense-tracker-4qjy.onrender.com/api/expenses",
 
         formData
 
@@ -437,7 +437,7 @@ function Expenses() {
 
       await axios.put(
 
-        `http://localhost:5000/api/expenses/${id}`,
+        `https://expense-tracker-4qjy.onrender.com/api/expenses/${id}`,
 
         editData
 
@@ -474,7 +474,7 @@ function Expenses() {
 
       await axios.delete(
 
-        `http://localhost:5000/api/expenses/${id}`
+        `https://expense-tracker-4qjy.onrender.com/api/expenses/${id}`
 
       );
 
@@ -520,7 +520,7 @@ function Expenses() {
 
       await axios.post(
 
-        "http://localhost:5000/api/sessions/refresh",
+        "https://expense-tracker-4qjy.onrender.com/api/sessions/refresh",
 
         {
 

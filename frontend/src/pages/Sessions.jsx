@@ -44,7 +44,7 @@ function Sessions() {
       const response =
       await axios.get(
 
-        `http://localhost:5000/api/sessions/full-history/${userId}`
+        `https://expense-tracker-4qjy.onrender.com/api/sessions/full-history/${userId}`
 
       );
 
@@ -94,7 +94,7 @@ function Sessions() {
 
       await axios.post(
 
-        "http://localhost:5000/api/sessions",
+        "https://expense-tracker-4qjy.onrender.com/api/sessions",
 
         {
 

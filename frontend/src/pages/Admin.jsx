@@ -32,7 +32,7 @@ function Admin() {
       const response =
       await axios.get(
 
-        "http://localhost:5000/api/users"
+        "https://expense-tracker-4qjy.onrender.com/api/users"
 
       );
 
@@ -64,7 +64,7 @@ function Admin() {
       const response =
       await axios.get(
 
-        "http://localhost:5000/api/expenses"
+        "https://expense-tracker-4qjy.onrender.com/api/expenses"
 
       );
 
@@ -144,7 +144,7 @@ function Admin() {
 
       await axios.put(
 
-        `http://localhost:5000/api/users/id/${id}`,
+        `https://expense-tracker-4qjy.onrender.com/api/users/id/${id}`,
 
         { role }
 
@@ -179,7 +179,7 @@ function Admin() {
 
       await axios.delete(
 
-        `http://localhost:5000/api/users/id/${id}`
+        `https://expense-tracker-4qjy.onrender.com/api/users/id/${id}`
 
       );
 
