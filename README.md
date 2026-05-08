@@ -330,7 +330,6 @@ npm run dev
 
 # 🛠️ Future Enhancements
 
-- Role-based authorization
 - Charts & visual reports
 - Monthly reports
 - Budget goals
