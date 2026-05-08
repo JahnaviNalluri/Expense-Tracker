@@ -17,6 +17,7 @@ Access a modern dashboard UI
 
 The application follows a scalable layered architecture with separate controllers, services, routes, and models.
 
+
 🧱 Project Structure
 Backend Structure
 backend
@@ -47,20 +48,27 @@ frontend
 │   └── main.jsx
 │
 └── package.json
+
+
 🔐 Authentication & Security
+
 🔒 Authentication Features
 JWT-based authentication
 Secure password hashing using BCrypt
 Login & Registration system
 Protected API architecture
 Environment variable support using dotenv
+
 🔄 Authentication Flow
 User registers with name, email, phone number, and password
 Password is hashed using BCrypt
 User logs in with email and password
 JWT token is generated upon successful authentication
 Token is used to access protected resources
+
+
 ✨ Features
+
 👤 User Management
 Register new users
 Login authentication
@@ -72,6 +80,7 @@ Username
 Delete user by:
 ID
 Username
+
 💳 Expense Management
 Add expenses and income
 Get all expenses
@@ -82,12 +91,14 @@ Type
 Title
 Category
 Get expenses by session
+
 🗂️ Category Management
 Create categories
 Prevent duplicate categories
 Update categories
 Delete categories
 Paginated category listing
+
 📂 Expense Sessions
 Create expense sessions
 Automatically deactivate old active sessions
@@ -96,6 +107,7 @@ Get active session
 View session history
 Get full session analytics
 Delete sessions
+
 📊 Analytics
 Total income calculation
 Total expense calculation
@@ -103,6 +115,7 @@ Remaining balance tracking
 Category-wise breakdown
 Expense vs Income breakdown
 Previous session comparison analytics
+
 🖥️ Frontend Pages
 Login Page
 Register Page
@@ -110,6 +123,7 @@ Dashboard
 Expenses Page
 Sessions Page
 Admin Page
+
 ⚙️ Tech Stack
 Frontend
 React.js
@@ -124,6 +138,8 @@ Mongoose
 JWT Authentication
 BCrypt
 dotenv
+
+
 📡 API Endpoints
 🔑 Authentication
 Method	Endpoint	Description
@@ -137,6 +153,7 @@ PUT	/users/id/:id	Update user by ID
 PUT	/users/username/:username	Update user by username
 DELETE	/users/id/:id	Delete user by ID
 DELETE	/users/username/:username	Delete user by username
+
 💳 Expenses
 Method	Endpoint	Description
 POST	/expenses	Add expense
@@ -148,6 +165,7 @@ GET	/expenses/title/:title	Filter by title
 GET	/expenses/category/:category	Filter by category
 PUT	/expenses/:id	Update expense
 DELETE	/expenses/:id	Delete expense
+
 🗂️ Categories
 Method	Endpoint	Description
 POST	/categories	Create category
@@ -155,6 +173,7 @@ GET	/categories	Get all categories
 GET	/categories/:id	Get category by ID
 PUT	/categories/:id	Update category
 DELETE	/categories/:id	Delete category
+
 📂 Expense Sessions
 Method	Endpoint	Description
 POST	/sessions	Create session
@@ -164,9 +183,11 @@ GET	/sessions/history/:userId	Get session history
 GET	/sessions/full-history/:userId	Get detailed session history
 GET	/sessions/:id	Get session by ID
 DELETE	/sessions/:id	Delete session
+
 📊 Analytics
 Method	Endpoint	Description
 GET	/analytics/:sessionId	Get session analytics
+
 📈 Key Functionalities
 Session-Based Expense Tracking
 
