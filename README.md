@@ -335,7 +335,6 @@ npm run dev
 - Monthly reports
 - Budget goals
 - Export reports to PDF
-- Dark mode UI
 - Notifications & reminders
 - Docker deployment
 - CI/CD integration
@@ -353,6 +352,3 @@ npm run dev
 
 ---
 
-# 👨‍💻 Author
-
-Developed by **Jahnavi**
