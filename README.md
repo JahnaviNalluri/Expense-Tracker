@@ -2,7 +2,7 @@
 
 A full-stack Expense Tracker application built using the MERN stack (**MongoDB, Express.js, React.js, Node.js**).
 
-The project helps users manage expenses, income, categories, and sessions with authentication, analytics, and a modern dashboard UI.
+The project helps users manage expenses, income, categories, and sessions with authentication and a modern dashboard UI.
 
 ---
 
@@ -14,7 +14,7 @@ The Expense Tracker application allows users to:
 - Manage expenses and income
 - Create categorized transactions
 - Track expense sessions
-- View analytics and session history
+- View session history
 - Monitor remaining balance and category-wise spending
 - Access a modern dashboard UI
 
@@ -133,19 +133,8 @@ frontend
 - Refresh sessions
 - Get active session
 - View session history
-- Get full session analytics
+- View complete session details
 - Delete sessions
-
----
-
-## 📊 Analytics
-
-- Total income calculation
-- Total expense calculation
-- Remaining balance tracking
-- Category-wise breakdown
-- Expense vs Income breakdown
-- Previous session comparison analytics
 
 ---
 
@@ -247,14 +236,6 @@ frontend
 
 ---
 
-## 📊 Analytics
-
-| Method | Endpoint | Description |
-|--------|-----------|-------------|
-| GET | `/analytics/:sessionId` | Get session analytics |
-
----
-
 # 📈 Key Functionalities
 
 ## Session-Based Expense Tracking
@@ -269,7 +250,7 @@ Each user can maintain active sessions for tracking expenses separately.
 
 ---
 
-## Category-Wise Expense Analysis
+## Category-Wise Expense Tracking
 
 The application calculates:
 
@@ -350,7 +331,7 @@ npm run dev
 # 🛠️ Future Enhancements
 
 - Role-based authorization
-- Charts & visual analytics
+- Charts & visual reports
 - Monthly reports
 - Budget goals
 - Export reports to PDF
@@ -372,3 +353,6 @@ npm run dev
 
 ---
 
+# 👨‍💻 Author
+
+Developed by **Jahnavi**
